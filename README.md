@@ -2,6 +2,8 @@
 
 This library contains sorting algorithm, which sorts the vector of integers inplace.
 
+You can find more documentation on: https://khilk.github.io/homework_vega/
+
 ## Getting started
 
 For quick start just paste this code in your `CMakeLists.txt` file.
