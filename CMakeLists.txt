@@ -6,6 +6,9 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# default build type
+option(CMAKE_BUILD_TYPE "Release")
+
 set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 # tests and main executable disabled by default
