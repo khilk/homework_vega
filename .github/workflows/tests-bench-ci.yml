@@ -1,0 +1,53 @@
+
+name: Bench
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  main:
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {
+            os: ubuntu-latest,
+            cc: clang-18, cxx: clang++-18,
+          }
+        build_type: [ Release ]
+
+    name: "${{ matrix.config.os }} / ${{ matrix.config.cxx }} / ${{ matrix.build_type }}"
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install clang
+        run:
+            wget https://apt.llvm.org/llvm.sh &&
+            chmod +x llvm.sh &&
+            sudo ./llvm.sh 18
+
+      - name: Configure CMake
+        run:
+          mkdir build &&
+          cd build &&
+          cmake ..
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DCMAKE_C_COMPILER=${{ matrix.config.cc }}
+          -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }}
+          -DBUILD_TESTING=ON
+          -DALGO_TESTS=ON
+          -DALGO_APP=ON
+
+      - name: Build
+        run:
+          cmake --build build --config ${{ matrix.build_type }} -j
+
+      - name: Bench
+        run:
+          cd build && ./tests/bench/bench_sort

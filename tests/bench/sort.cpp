@@ -2,7 +2,7 @@
 #include <sort.hpp>
 
 #include <random>
-#include <ranges>
+#include <algorithm>
 
 #include <benchmark/benchmark.h>
 
@@ -29,7 +29,7 @@ void BenchSort(benchmark::State& state) {
     {
       std::random_device rd;
       std::mt19937 g(rd());
-      std::ranges::shuffle(v, g);
+      std::shuffle(v.begin(), v.end(), g);
     }
     state.ResumeTiming();
   }
