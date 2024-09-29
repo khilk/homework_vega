@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.28)
 
-project(homework)
+project(algorithms)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-set(SOURCE_FILES main.cpp)
-
-add_executable(simple_example ${SOURCE_FILES})
+add_subdirectory(src) # add libsort library
+add_subdirectory(app) # add sort_app executable
